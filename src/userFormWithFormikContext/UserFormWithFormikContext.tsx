@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 
@@ -16,9 +16,11 @@ const UserFormWithFormikContext: React.FC = () => {
 
             <Formik
                 initialValues={{ name: "", age: 0 }}
+
                 onSubmit={(values: values_type) => {
                     console.log('values', values)
                 }}
+
                 validationSchema={
                     Yup.object({
                         name: Yup.string()
@@ -35,48 +37,76 @@ const UserFormWithFormikContext: React.FC = () => {
             >
                 {
                     (formik) => (
-                        <form onSubmit={formik.handleSubmit}>
+                        // formik elements / tags
+                        <Form className="form">
 
-                            {/* name container */}
-                            <div>
-                                <label htmlFor="name">Name:</label>
-                                <input
-                                    id="name"
-                                    type="text"
-                                    {...formik.getFieldProps("name")}
-                                // value={formik.values.name}
-                                // onChange={formik.handleChange}
-                                />
-                                {
-                                    formik.errors.name ?
-                                        <div style={{ color: "red" }}> {formik.errors.name} </div> :
-                                        null
-                                }
+                            <div className="name-container">
+                                <label htmlFor="name">Name: </label>
+                                <Field type="text" name="name" id="name" />
+                                <br />
+                                <ErrorMessage name="name" render={(err_msg) => (
+                                    <span style={{ color: "red" }} >{err_msg}</span>
+                                )} />
+
                             </div>
 
-                            {/* age container */}
-                            <div>
-                                <label htmlFor="age">Age:</label>
-                                <input
-                                    id="age"
-                                    type="number"
-                                    {...formik.getFieldProps("age")}
-                                // value={formik.values.age}
-                                // onChange={formik.handleChange}
-                                />
-                                {
-                                    formik.errors.age ?
-                                        <div style={{ color: "red" }} >{formik.errors.age}</div> :
-                                        null
-                                }
+                            <div className="age-container">
+                                <label htmlFor="age">Age: </label>
+                                <Field type="number" name="age" id="age" />
+                                <br />
+                                <ErrorMessage name="age" />
                             </div>
 
-                            {/* submit button */}
                             <div>
-                                <button type="submit">Submbit</button>
+                                <button type="submit">
+                                    SUBMIT
+                                </button>
                             </div>
+                        </Form>
 
-                        </form>
+                        //  normal elements / tags
+                        // <form onSubmit={formik.handleSubmit}>
+
+                        //     {/* name container */}
+                        //     <div>
+                        //         <label htmlFor="name">Name:</label>
+                        //         <input
+                        //             id="name"
+                        //             type="text"
+                        //             {...formik.getFieldProps("name")}
+                        //         // value={formik.values.name}
+                        //         // onChange={formik.handleChange}
+                        //         />
+                        //         {
+                        //             formik.errors.name ?
+                        //                 <div style={{ color: "red" }}> {formik.errors.name} </div> :
+                        //                 null
+                        //         }
+                        //     </div>
+
+                        //     {/* age container */}
+                        //     <div>
+                        //         <label htmlFor="age">Age:</label>
+                        //         <input
+                        //             id="age"
+                        //             type="number"
+                        //             {...formik.getFieldProps("age")}
+                        //         // value={formik.values.age}
+                        //         // onChange={formik.handleChange}
+                        //         />
+                        //         {
+                        //             formik.errors.age ?
+                        //                 <div style={{ color: "red" }} >{formik.errors.age}</div> :
+                        //                 null
+                        //         }
+                        //     </div>
+
+                        //     {/* submit button */}
+                        //     <div>
+                        //         <button type="submit">Submbit</button>
+                        //     </div>
+
+                        // </form>
                     )
                 }
 
